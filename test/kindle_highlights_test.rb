@@ -5,11 +5,11 @@ require 'yaml'
 $LOAD_PATH << File.dirname(__FILE__) + "/../lib"
 require 'kindle_highlights'
 
-AMAZON = YAML.load_file(File.dirname(__FILE__) + "/../config/amazon.yml")
+AMAZON = YAML.load_file(File.dirname(__FILE__) + "/../config/amazon.yaml")
 
 class KindleHighlightsTest < Test::Unit::TestCase
   def setup
-    @kindle = KindleHighlight.new(AMAZON['email'], AMAZON['password'])
+    @kindle = KindleHighlightBackup.new(AMAZON['email'], AMAZON['password'])
   end
   
   def test_can_login_and_scrape_highlights
