@@ -13,12 +13,19 @@ task :test_parse_book do
 end
 
 task :test_save_book do
-  highlights = File.read('highlights.json')
+  items = JSON.parse(File.read('highlights.json'))['items']
   book = KindleHighlightBackup::Book.new('FakeAsin', 'FakeTitle', 'FakeAuthor')
-  KindleHighlightBackup.save(book, highlights, './')
+  KindleHighlightBackup.save(book, items, './')
 end
 
 task :backup do
   config = YAML.load_file('amazon.yaml')
-  KindleHighlightBackup.new(config['email'], config['password'], config['save_location'])
+  backup = KindleHighlightBackup.new(config['email'], config['password'], config['save_location'])
+  backup.backup()
+end
+
+task :backup_one do
+  config = YAML.load_file('amazon.yaml')
+  backup = KindleHighlightBackup.new(config['email'], config['password'], config['save_location'])
+  backup.backupOne(config['backup_one'])
 end
