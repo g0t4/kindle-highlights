@@ -42,7 +42,14 @@ class KindleHighlightBackup
     highlights['book']['author'] = book.author
     json = JSON.pretty_generate(highlights)
     file_path = File.join(save_location, "#{book.asin}.json")
-    File.open(file_path, 'w') { |f| f.write(json) }
+
+    any_items = highlights['items'].count > 0
+    if any_items
+      File.open(file_path, 'w') { |f| f.write(json) }
+    else
+      File.delete(file_path) if File.exists?(file_path)
+    end
+
   end
 
 end
