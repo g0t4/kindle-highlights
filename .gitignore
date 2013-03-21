@@ -2,3 +2,6 @@
 *.gemspec
 config/*.yml
 Rakefile
+
+tasks.xml
+workspace.xml
